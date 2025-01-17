@@ -16,12 +16,10 @@ public class Participante {
 
     private String nome;
 
+    @Column(unique = true)
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "tb_participante_atividade",
-            joinColumns = @JoinColumn(name = "participante_id"),
-            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    @ManyToMany(mappedBy = "participantes")
     private final List<Atividade> atividades = new ArrayList<>();
 
     public Participante(){}

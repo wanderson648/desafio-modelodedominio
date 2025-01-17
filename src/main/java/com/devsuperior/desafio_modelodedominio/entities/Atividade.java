@@ -16,7 +16,8 @@ public class Atividade {
 
     private String nome;
 
-    private String description;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
 
     private Double preco;
 
@@ -27,16 +28,20 @@ public class Atividade {
     @OneToMany(mappedBy = "atividade")
     private final List<Bloco> blocos = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "atividades")
+    @ManyToMany
+    @JoinTable(name = "tb_atividades_participantes",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "participante_id"))
     private final List<Participante> participantes = new ArrayList<>();
 
     public Atividade() {}
 
-    public Atividade(Long id, String nome, String description, Double preco) {
+    public Atividade(Long id, String nome, String descricao, Double preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;
-        this.description = description;
+        this.descricao = descricao;
         this.preco = preco;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -55,12 +60,12 @@ public class Atividade {
         this.nome = nome;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Double getPreco() {

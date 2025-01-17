@@ -14,8 +14,10 @@ public class Bloco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant inicio;
 
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant fim;
 
     @ManyToOne
@@ -24,10 +26,11 @@ public class Bloco {
 
     public Bloco() {}
 
-    public Bloco(Long id, Instant inicio, Instant fim) {
+    public Bloco(Long id, Instant inicio, Instant fim, Atividade atividade) {
         this.id = id;
         this.inicio = inicio;
         this.fim = fim;
+        this.atividade = atividade;
     }
 
     public Long getId() {
