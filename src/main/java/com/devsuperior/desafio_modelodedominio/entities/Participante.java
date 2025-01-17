@@ -2,6 +2,8 @@ package com.devsuperior.desafio_modelodedominio.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +17,12 @@ public class Participante {
     private String nome;
 
     private String email;
+
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+            joinColumns = @JoinColumn(name = "participante_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id"))
+    private final List<Atividade> atividades = new ArrayList<>();
 
     public Participante(){}
 
@@ -46,6 +54,18 @@ public class Participante {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Atividade> getAtividades() {
+        return atividades;
     }
 
     @Override
